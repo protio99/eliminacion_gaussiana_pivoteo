@@ -11,21 +11,19 @@ def imprime_matriz(matriz):
 
 #Calculo de los factores escala para cada fila
 def calc_factores_escala(A):
+    #Obtiene el mayor valor absoluto de cada fila, donde A es la matriz aumentada
     factores_escala = np.max(np.abs(A), axis=1)
     print("Factores escala: ", factores_escala)
     return factores_escala
 
-# def calc_factores_escala(matriz, iteracion):
-#     factores_escala = []
-#     for i in range(iteracion, len(matriz)):
-#         fila = matriz[i]
-#         valores_absolutos = [abs(j) for j in fila]
-#         factor_escala = sorted(valores_absolutos, reverse=True)[0]
-#         factores_escala.append(factor_escala)
-#     print("Iteracion | Factores escala: ", iteracion,  factores_escala)
-#     return factores_escala
+# Calculo de los cocientes rk para cada columna para el pivotaje
+def calc_cocientes(A, factores_escala, k):
+    #A: matriz
+    #k: Columna en iteración
+    cocientes = np.abs(A[k:, k]) / factores_escala[k:]  # Cálculo vectorizado
+    max_index = k + np.argmax(cocientes)  # Encuentra el índice de la mejor fila pivote
+    return max_index
 
-# Calculo de los cocientes rk para cada columna
 def calc_cocientes(matriz, factores_escala, iteracion):
     print("Matriz aumentada desde el metodo de cocientes")
     imprime_matriz(matriz)
